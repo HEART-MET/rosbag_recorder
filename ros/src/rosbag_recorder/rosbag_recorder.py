@@ -127,7 +127,7 @@ class RosbagRecorder(object):
         today = datetime.datetime.today()
         subfilename = '{:04d}'.format(today.year) + '_' + '{:02d}'.format(today.month) + \
                       '_' + '{:02d}'.format(today.day) + '_' + '{:02d}'.format(today.hour) + \
-                      '-' + '{:02d}'.format(today.minute)
+                      '-' + '{:02d}'.format(today.minute) + '-{:02d}'.format(today.second)
         filename = self.file_prefix + '_' + subfilename + '.bag'
 
         # create the directory if it doesn't exist

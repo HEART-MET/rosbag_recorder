@@ -16,6 +16,6 @@ This package contains a ROS node which starts and stops a `rosbag record` proces
 
 ## Notes
 * multiple instances can be started, but make sure to change the topic remappings and prefix in the launch file as required
-* the format for the file name is as follows: `prefix_YYYY_MM_DD_HH-mm.bag`; therefore if you attempt to start two recordings in the same minute with the same prefix, it will fail
+* the format for the file name is as follows: `prefix_YYYY_MM_DD_HH-mm-ss.bag`
 * if you want to record a large number of topics, there might be a delay between when the `e_start` event is received and when the recording actually starts; change the `~timeout` parameter as required
 * additional `rosbag record` [arguments](https://wiki.ros.org/rosbag/Commandline#record) can be specified as a string with the parameter `~rosbag_arguments` in the launch file
