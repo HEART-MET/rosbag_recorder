@@ -171,6 +171,7 @@ class RosbagRecorder(object):
         ps_output = ps_command.stdout.read()
         retcode = ps_command.wait()
         assert retcode == 0, "ps command returned %d" % retcode
+        ps_output = ps_output.decode()
         for pid_str in ps_output.split("\n")[:-1]:
                 os.kill(int(pid_str), signal.SIGINT)
         # make sure the bagfile will not be active when the process is killed
