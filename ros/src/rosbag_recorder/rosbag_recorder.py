@@ -128,14 +128,14 @@ class RosbagRecorder(object):
         subfilename = '{:04d}'.format(today.year) + '_' + '{:02d}'.format(today.month) + \
                       '_' + '{:02d}'.format(today.day) + '_' + '{:02d}'.format(today.hour) + \
                       '-' + '{:02d}'.format(today.minute) + '-{:02d}'.format(today.second)
-        filename = self.file_prefix + '_' + subfilename + '.bag'
+        filename = self.file_prefix + '_' + subfilename
 
         # create the directory if it doesn't exist
         if not os.path.isdir(os.path.expanduser(self.file_path)):
             os.mkdir(os.path.expanduser(self.file_path))
         fullpath = os.path.expanduser(os.path.join(self.file_path, filename))
         # if the file already exists, we don't start recording
-        if os.path.exists(fullpath):
+        if os.path.exists(fullpath + '.bag') or os.path.exists(fullpath + '_0.bag'):
             rospy.logerr("File %s already exists. Not recording" % fullpath)
             return False, ''
 
@@ -149,8 +149,10 @@ class RosbagRecorder(object):
         # make sure the recording starts before returning
         start_time = rospy.Time.now()
         while rospy.Time.now() - start_time < self.timeout:
-            if os.path.exists(fullpath + '.active'):
-                return True, filename
+            if os.path.exists(fullpath + '.bag.active'):
+                return True, filename + '.bag'
+            if os.path.exists(fullpath + '_0.bag.active'):
+                return True, filename + '_0.bag'
             rospy.sleep(0.1)
 
         rospy.logerr("Timed out waiting for recording to start.")

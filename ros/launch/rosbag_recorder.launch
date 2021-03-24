@@ -12,7 +12,8 @@
     <param name="file_prefix" type="str" value="$(arg file_prefix)"/>
     <param name="timeout" type="double" value="5.0"/>
     <param name="loop_rate" type="double" value="1.0"/>
-    <param name="rosbag_arguments" type="str" value="--lz4" />
+    <!-- use lz4 compression, and split bagfiles when the size reaches 1.5 G -->
+    <param name="rosbag_arguments" type="str" value="--lz4 --split --size 1536" />
     <remap from="~event_in" to="/rosbag_recorder/event_in" />
     <remap from="~event_out" to="/rosbag_recorder/event_out" />
     <remap from="~filename" to="/rosbag_recorder/filename" />
