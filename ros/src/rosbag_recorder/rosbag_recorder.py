@@ -27,7 +27,10 @@ class RosbagRecorder(object):
 
         # get list of topics from yaml file
         with open(topics_file, 'r') as stream:
-            self.topics = yaml.load(stream, Loader=yaml.FullLoader)
+            try:
+                self.topics = yaml.load(stream, Loader=yaml.FullLoader)
+            except AttributeError:
+                self.topics = yaml.load(stream)
         self.rosbag_process = None
 
         # Node cycle rate (in hz)
